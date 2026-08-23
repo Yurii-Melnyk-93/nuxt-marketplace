@@ -1,0 +1,24 @@
+<script setup lang="ts">
+const route = useRoute()
+
+const { data: product, error } = await useFetch<Product>(`/api/products/${route.params.id}`)
+</script>
+
+<template>
+  <main class="mx-auto max-w-3xl px-4 py-8">
+    <NuxtLink to="/" class="text-sm text-gray-500 hover:text-gray-700">&larr; Back to catalog</NuxtLink>
+
+    <div v-if="error" class="mt-6 text-red-600">Product not found.</div>
+
+    <div v-else-if="product" class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-8">
+      <img :src="product.image" :alt="product.name" class="w-full rounded-xl object-cover">
+
+      <div>
+        <span class="text-xs uppercase tracking-wide text-gray-400">{{ product.category }}</span>
+        <h1 class="mt-1 text-2xl font-semibold text-gray-900">{{ product.name }}</h1>
+        <p class="mt-4 text-2xl font-bold text-gray-900">${{ product.price.toFixed(2) }}</p>
+        <p class="mt-4 text-gray-600">{{ product.description }}</p>
+      </div>
+    </div>
+  </main>
+</template>
