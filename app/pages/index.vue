@@ -15,13 +15,9 @@ const { data: products, status, error } = await useFetch<Product[]>('/api/produc
     <h1 class="text-2xl font-semibold text-gray-900 mb-6">Products</h1>
 
     <div class="mb-6 flex flex-col sm:flex-row gap-3">
-      <input v-model="search" type="text" placeholder="Search products…"
-        class="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm">
+      <BaseInput v-model="search" placeholder="Search products…" class="flex-1" />
 
-      <select v-model="category" class="rounded-lg border border-gray-300 px-3 py-2 text-sm">
-        <option value="">All categories</option>
-        <option v-for="c in categories" :key="c" :value="c">{{ c }}</option>
-      </select>
+      <BaseCombobox v-model="category" :options="categories ?? []" placeholder="All categories" class="sm:w-56" />
     </div>
 
     <p v-if="status === 'pending'" class="text-gray-500">Loading products…</p>
