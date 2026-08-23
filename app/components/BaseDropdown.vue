@@ -29,7 +29,7 @@ defineExpose({ close })
     </slot>
 
     <div v-if="isOpen" role="menu"
-      class="absolute right-0 z-10 mt-1 min-w-[10rem] overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg">
+      class="absolute right-0 z-30 mt-1 min-w-[10rem] overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg">
       <slot :close="close" />
     </div>
   </div>
