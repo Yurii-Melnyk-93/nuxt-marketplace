@@ -1,7 +1,14 @@
 <script setup lang="ts">
 const route = useRoute()
+const cart = useCartStore()
 
 const { data: product, error } = await useFetch<Product>(`/api/products/${route.params.id}`)
+
+function addToCart() {
+  if (product.value) {
+    cart.addItem(product.value)
+  }
+}
 </script>
 
 <template>
@@ -18,6 +25,12 @@ const { data: product, error } = await useFetch<Product>(`/api/products/${route.
         <h1 class="mt-1 text-2xl font-semibold text-gray-900">{{ product.name }}</h1>
         <p class="mt-4 text-2xl font-bold text-gray-900">${{ product.price.toFixed(2) }}</p>
         <p class="mt-4 text-gray-600">{{ product.description }}</p>
+
+        <button type="button"
+          class="mt-6 rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700"
+          @click="addToCart">
+          Add to cart
+        </button>
       </div>
     </div>
   </main>
