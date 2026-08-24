@@ -3,7 +3,7 @@ export default defineEventHandler(async (event) => {
   const search = String(query.search ?? '').toLowerCase()
   const category = String(query.category ?? '')
   const page = Math.max(1, Number(query.page) || 1)
-  const limit = Math.max(1, Number(query.limit) || 6)
+  const limit = Math.min(50, Math.max(1, Number(query.limit) || 6))
 
   const filtered = products.filter((product) => {
     const matchesSearch = product.name.toLowerCase().includes(search)
