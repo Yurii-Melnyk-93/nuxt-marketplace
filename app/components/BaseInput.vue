@@ -8,6 +8,10 @@ defineProps<{
 </script>
 
 <template>
-  <input v-model="model" :type="type ?? 'text'" :placeholder="placeholder"
-    class="rounded-lg border border-gray-300 px-3 py-2 text-sm">
+  <input
+    v-model="model"
+    :type="type ?? 'text'"
+    :placeholder="placeholder"
+    class="rounded-lg border border-gray-300 px-3 py-2 text-sm"
+  >
 </template>

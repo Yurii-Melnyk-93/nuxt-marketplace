@@ -18,29 +18,50 @@ function copyLink() {
     <div class="absolute right-2 top-2 z-10">
       <BaseDropdown>
         <template #trigger="{ toggle }">
-          <button type="button" class="rounded-full bg-white/90 p-1.5 text-gray-600 shadow hover:bg-white"
-            @click="toggle">
-            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <button
+            type="button"
+            class="rounded-full bg-white/90 p-1.5 text-gray-600 shadow hover:bg-white"
+            @click="toggle"
+          >
+            <svg
+              class="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
               <path d="M10 6a2 2 0 100-4 2 2 0 000 4zM10 12a2 2 0 100-4 2 2 0 000 4zM10 18a2 2 0 100-4 2 2 0 000 4z" />
             </svg>
           </button>
         </template>
 
         <template #default="{ close }">
-          <NuxtLink :to="`/products/${product.id}`" class="block px-3 py-2 text-left text-sm hover:bg-gray-100"
-            @click="close">
+          <NuxtLink
+            :to="`/products/${product.id}`"
+            class="block px-3 py-2 text-left text-sm hover:bg-gray-100"
+            @click="close"
+          >
             View details
           </NuxtLink>
-          <button type="button" class="block w-full px-3 py-2 text-left text-sm hover:bg-gray-100"
-            @click="() => { copyLink(); close() }">
+          <button
+            type="button"
+            class="block w-full px-3 py-2 text-left text-sm hover:bg-gray-100"
+            @click="() => { copyLink(); close() }"
+          >
             {{ copied ? 'Copied!' : 'Copy link' }}
           </button>
         </template>
       </BaseDropdown>
     </div>
 
-    <NuxtLink :to="`/products/${product.id}`" class="block overflow-hidden rounded-t-xl">
-      <img v-if="product.image" :src="product.image" :alt="product.name" class="h-40 w-full object-cover">
+    <NuxtLink
+      :to="`/products/${product.id}`"
+      class="block overflow-hidden rounded-t-xl"
+    >
+      <img
+        v-if="product.image"
+        :src="product.image"
+        :alt="product.name"
+        class="h-40 w-full object-cover"
+      >
       <div class="p-4">
         <span class="text-xs uppercase tracking-wide text-gray-400">{{ product.category }}</span>
         <h2 class="mt-1 font-medium text-gray-900">{{ product.name }}</h2>
@@ -49,9 +70,11 @@ function copyLink() {
     </NuxtLink>
 
     <div class="px-4 pb-4">
-      <button type="button"
+      <button
+        type="button"
         class="w-full rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white hover:bg-gray-700"
-        @click="addToCart">
+        @click="addToCart"
+      >
         Add to cart
       </button>
     </div>
