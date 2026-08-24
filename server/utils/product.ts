@@ -128,3 +128,34 @@ export const products: Product[] = [
     image: 'https://picsum.photos/seed/1000-piece-puzzle/400/300',
   },
 ]
+
+export function queryProducts(
+  allProducts: Product[],
+  {
+    search = '',
+    category = '',
+    page = 1,
+    limit = 6,
+  }: {
+    search?: string
+    category?: string
+    page?: number
+    limit?: number
+  } = {},
+) {
+  const normalizedSearch = search.toLowerCase()
+  const clampedLimit = Math.min(50, Math.max(1, limit))
+  const clampedPage = Math.max(1, page)
+
+  const filtered = allProducts.filter((product) => {
+    const matchesSearch = product.name.toLowerCase().includes(normalizedSearch)
+    const matchesCategory = !category || product.category === category
+    return matchesSearch && matchesCategory
+  })
+
+  const total = filtered.length
+  const start = (clampedPage - 1) * clampedLimit
+  const items = filtered.slice(start, start + clampedLimit)
+
+  return { items, total, page: clampedPage, limit: clampedLimit }
+}
