@@ -1,9 +1,26 @@
 <script setup lang="ts">
-const search = ref('')
-const debouncedSearch = refDebounced(search, 300)
-const category = ref('')
+const searchRaw = ref('')
+const debouncedSearch = refDebounced(searchRaw, 300)
+
+const categoryRaw = ref('')
 const page = ref(1)
 const limit = 6
+
+const search = computed({
+  get: () => searchRaw.value,
+  set: (value: string) => {
+    searchRaw.value = value
+    page.value = 1
+  },
+})
+
+const category = computed({
+  get: () => categoryRaw.value,
+  set: (value: string) => {
+    categoryRaw.value = value
+    page.value = 1
+  },
+})
 
 const { data: categories } = await useFetch<string[]>('/api/categories')
 
@@ -23,10 +40,6 @@ const { data, status, error } = await useFetch<{
 
 const products = computed(() => data.value?.items ?? [])
 const totalPages = computed(() => Math.max(1, Math.ceil((data.value?.total ?? 0) / limit)))
-
-watch([debouncedSearch, category], () => {
-  page.value = 1
-})
 </script>
 
 <template>
