@@ -2,7 +2,15 @@
 const route = useRoute()
 const cart = useCartStore()
 
-const { data: product, error } = await useFetch<Product>(`/api/products/${route.params.id}`)
+const { data: product, error } = await useFetch<Product>(() => `/api/products/${route.params.id}`)
+
+if (error.value) {
+  throw createError({
+    statusCode: error.value.statusCode ?? 404,
+    statusMessage: 'Product not found',
+    fatal: true,
+  })
+}
 
 function addToCart() {
   if (product.value) {
@@ -15,9 +23,7 @@ function addToCart() {
   <main class="mx-auto max-w-3xl px-4 py-8">
     <NuxtLink to="/" class="text-sm text-gray-500 hover:text-gray-700">&larr; Back to catalog</NuxtLink>
 
-    <div v-if="error" class="mt-6 text-red-600">Product not found.</div>
-
-    <div v-else-if="product" class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-8">
+    <div v-if="product" class="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2">
       <img :src="product.image" :alt="product.name" class="w-full rounded-xl object-cover">
 
       <div>
