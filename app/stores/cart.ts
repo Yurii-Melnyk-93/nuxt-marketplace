@@ -29,6 +29,8 @@ export const useCartStore = defineStore('cart', {
     },
 
     updateQuantity(productId: number, quantity: number) {
+      if (!Number.isFinite(quantity)) return
+
       const item = this.items.find((item) => item.product.id === productId)
 
       if (!item) return

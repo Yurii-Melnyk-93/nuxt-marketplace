@@ -18,9 +18,19 @@ const cart = useCartStore()
           <p class="text-sm text-gray-500">${{ item.product.price.toFixed(2) }}</p>
         </div>
 
-        <input type="number" min="1" :value="item.quantity"
-          class="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center"
-          @change="cart.updateQuantity(item.product.id, Number(($event.target as HTMLInputElement).value))">
+        <div class="flex items-center gap-2">
+          <button type="button"
+            class="flex h-7 w-7 items-center justify-center rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40"
+            :disabled="item.quantity <= 1" @click="cart.updateQuantity(item.product.id, item.quantity - 1)">
+            −
+          </button>
+          <span class="w-6 text-center text-sm">{{ item.quantity }}</span>
+          <button type="button"
+            class="flex h-7 w-7 items-center justify-center rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100"
+            @click="cart.updateQuantity(item.product.id, item.quantity + 1)">
+            +
+          </button>
+        </div>
 
         <p class="w-20 text-right font-medium text-gray-900">
           ${{ (item.product.price * item.quantity).toFixed(2) }}
