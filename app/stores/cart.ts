@@ -46,4 +46,5 @@ export const useCartStore = defineStore('cart', {
       this.items = []
     },
   },
+  persist: true,
 })
