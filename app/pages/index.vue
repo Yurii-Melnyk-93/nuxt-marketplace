@@ -6,6 +6,11 @@ const categoryRaw = ref('')
 const page = ref(1)
 const limit = 6
 
+useSeoMeta({
+  title: 'Products',
+  description: 'Browse our product catalog — search, filter by category, and shop.',
+})
+
 const search = computed({
   get: () => searchRaw.value,
   set: (value: string) => {

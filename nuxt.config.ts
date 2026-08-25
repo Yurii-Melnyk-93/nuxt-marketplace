@@ -9,4 +9,17 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  app: {
+    head: {
+      htmlAttrs: { lang: 'en' },
+      title: 'Nuxt Marketplace',
+      titleTemplate: '%s — Nuxt Marketplace',
+      meta: [
+        {
+          name: 'description',
+          content: 'A small e-commerce marketplace built with Nuxt — browse products, search, filter, and shop.',
+        },
+      ],
+    },
+  },
 })

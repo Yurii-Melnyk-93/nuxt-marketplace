@@ -1,8 +1,17 @@
 <script setup lang="ts">
 const route = useRoute()
 const cart = useCartStore()
-
 const { data: product, error } = await useFetch<Product>(() => `/api/products/${route.params.id}`)
+
+useSeoMeta({
+ title: () => product.value?.name ?? 'Product',
+   description: () => product.value?.description,
+  ogTitle: () => product.value?.name,
+  ogDescription: () => product.value?.description,
+  ogImage: () => product.value?.image,
+  twitterCard: 'summary_large_image',
+})
+
 
 if (error.value) {
   throw createError({

@@ -1,5 +1,10 @@
 <script setup lang="ts">
 const cart = useCartStore()
+
+useSeoMeta({
+  title: 'Your Cart',
+  description: 'Review the items in your shopping cart.',
+})
 </script>
 
 <template>
