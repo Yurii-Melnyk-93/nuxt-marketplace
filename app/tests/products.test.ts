@@ -51,4 +51,10 @@ describe('queryProducts', () => {
     const result = queryProducts(fixture, { page: -5 })
     expect(result.page).toBe(1)
   })
+
+  it('also matches search against description', () => {
+    const result = queryProducts(fixture, { search: 'bluetooth' })
+    expect(result.total).toBe(2)
+    expect(result.items.map((p) => p.id)).toEqual([1, 4])
+  })
 })
