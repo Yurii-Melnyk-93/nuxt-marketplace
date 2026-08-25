@@ -148,7 +148,9 @@ export function queryProducts(
   const clampedPage = Math.max(1, page)
 
   const filtered = allProducts.filter((product) => {
-    const matchesSearch = product.name.toLowerCase().includes(normalizedSearch)
+    const matchesSearch = 
+      product.name.toLowerCase().includes(normalizedSearch) ||
+      product.description.toLowerCase().includes(normalizedSearch)
     const matchesCategory = !category || product.category === category
     return matchesSearch && matchesCategory
   })

@@ -2,10 +2,10 @@ import { describe, expect, it } from 'vitest'
 import { queryProducts } from '../../server/utils/product'
 
 const fixture: Product[] = [
-  { id: 1, name: 'Wireless Headphones', price: 79.99, category: 'Electronics', description: '', image: '' },
-  { id: 2, name: 'Coffee Grinder', price: 34.5, category: 'Kitchen', description: '', image: '' },
-  { id: 3, name: 'Yoga Mat', price: 22.0, category: 'Sports', description: '', image: '' },
-  { id: 4, name: 'Wireless Speaker', price: 49.99, category: 'Electronics', description: '', image: '' },
+  { id: 1, name: 'Wireless Headphones', price: 79.99, category: 'Electronics', description: 'Bluetooth headphones with noise cancellation', image: '' },
+  { id: 2, name: 'Coffee Grinder', price: 34.5, category: 'Kitchen', description: 'Manual burr grinder', image: '' },
+  { id: 3, name: 'Yoga Mat', price: 22.0, category: 'Sports', description: 'Non-slip exercise mat', image: '' },
+  { id: 4, name: 'Wireless Speaker', price: 49.99, category: 'Electronics', description: 'Portable Bluetooth speaker', image: '' },
 ]
 
 describe('queryProducts', () => {
