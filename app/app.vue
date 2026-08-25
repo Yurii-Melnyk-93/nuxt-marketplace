@@ -16,7 +16,9 @@ const cart = useCartStore()
           to="/cart"
           class="text-sm font-medium text-gray-700 hover:text-gray-900"
         >
-          Cart ({{ cart.totalItems }})
+          <ClientOnly fallback="Cart">
+            Cart ({{ cart.totalItems }})
+          </ClientOnly>
         </NuxtLink>
       </div>
     </header>
