@@ -65,12 +65,20 @@ const totalPages = computed(() => Math.max(1, Math.ceil((data.value?.total ?? 0)
       />
     </div>
 
-    <p
-      v-if="status === 'pending'"
-      class="text-gray-500"
-    >
-      Loading products…
-    </p>
+    <div v-if="status === 'pending'">
+      <span
+        class="sr-only"
+        role="status"
+      >
+        Loading products…
+      </span>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ProductCardSkeleton
+          v-for="n in limit"
+          :key="n"
+        />
+      </div>
+    </div>
     <p
       v-else-if="error"
       class="text-red-600"
