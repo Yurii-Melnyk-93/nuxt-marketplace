@@ -3,6 +3,7 @@ const searchRaw = ref('')
 const debouncedSearch = refDebounced(searchRaw, 300)
 
 const categoryRaw = ref('')
+const sortRaw = ref('')
 const page = ref(1)
 const limit = 6
 
@@ -27,6 +28,14 @@ const category = computed({
   },
 })
 
+const sort = computed({
+  get: () => sortRaw.value,
+  set: (value: string) => {
+    sortRaw.value = value
+    page.value = 1
+  },
+})
+
 const { data: categories } = await useFetch<string[]>('/api/categories')
 
 const { data, status, error } = await useFetch<{
@@ -39,6 +48,7 @@ const { data, status, error } = await useFetch<{
     search: debouncedSearch.value,
     category: category.value,
     page: page.value,
+    sort: sort.value,
     limit,
   })),
 })
@@ -56,6 +66,10 @@ const totalPages = computed(() => Math.max(1, Math.ceil((data.value?.total ?? 0)
         v-model="search"
         placeholder="Search products…"
         class="flex-1"
+      />
+      <SortMenu
+        v-model="sort"
+        class="sm:w-48"
       />
       <BaseCombobox
         v-model="category"

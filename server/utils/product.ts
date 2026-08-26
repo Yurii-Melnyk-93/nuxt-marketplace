@@ -134,11 +134,13 @@ export function queryProducts(
   {
     search = '',
     category = '',
+    sort = '',
     page = 1,
     limit = 6,
   }: {
     search?: string
     category?: string
+    sort?: string
     page?: number
     limit?: number
   } = {},
@@ -148,16 +150,22 @@ export function queryProducts(
   const clampedPage = Math.max(1, page)
 
   const filtered = allProducts.filter((product) => {
-    const matchesSearch = 
+    const matchesSearch =
       product.name.toLowerCase().includes(normalizedSearch) ||
       product.description.toLowerCase().includes(normalizedSearch)
     const matchesCategory = !category || product.category === category
     return matchesSearch && matchesCategory
   })
 
-  const total = filtered.length
+  const sorted = [...filtered].sort((a, b) => {
+    if (sort === 'price-asc') return a.price - b.price
+    if (sort === 'price-desc') return b.price - a.price
+    return 0
+  })
+
+  const total = sorted.length
   const start = (clampedPage - 1) * clampedLimit
-  const items = filtered.slice(start, start + clampedLimit)
+  const items = sorted.slice(start, start + clampedLimit)
 
   return { items, total, page: clampedPage, limit: clampedLimit }
 }

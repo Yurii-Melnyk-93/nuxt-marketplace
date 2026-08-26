@@ -1,4 +1,13 @@
 <script setup lang="ts">
+withDefaults(
+  defineProps<{
+    menuClass?: string
+  }>(),
+  {
+    menuClass: 'min-w-[10rem]',
+  },
+)
+
 const isOpen = ref(false)
 const rootEl = ref<HTMLElement | null>(null)
 
@@ -53,7 +62,8 @@ defineExpose({ close })
     <div
       v-if="isOpen"
       role="menu"
-      class="absolute right-0 z-30 mt-1 min-w-[10rem] overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg"
+      class="absolute right-0 z-30 mt-1 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg"
+      :class="menuClass"
     >
       <slot :close="close" />
     </div>
