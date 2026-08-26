@@ -52,7 +52,7 @@ const totalPages = computed(() => Math.max(1, Math.ceil((data.value?.total ?? 0)
     <h1 class="text-2xl font-semibold text-gray-900 mb-6">Products</h1>
 
     <div class="mb-6 flex flex-col sm:flex-row gap-3">
-      <BaseInput
+      <SearchInput
         v-model="search"
         placeholder="Search products…"
         class="flex-1"
