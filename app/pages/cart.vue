@@ -35,7 +35,7 @@ useSeoMeta({
 
         <div class="flex-1">
           <h2 class="font-medium text-gray-900">{{ item.product.name }}</h2>
-          <p class="text-sm text-gray-500">${{ item.product.price.toFixed(2) }}</p>
+          <p class="text-sm text-gray-500">{{ formatPrice(item.product.price) }}</p>
         </div>
 
         <div class="flex items-center gap-2">
@@ -58,7 +58,7 @@ useSeoMeta({
         </div>
 
         <p class="w-20 text-right font-medium text-gray-900">
-          ${{ (item.product.price * item.quantity).toFixed(2) }}
+          {{ formatPrice(item.product.price * item.quantity) }}
         </p>
 
         <button
@@ -78,7 +78,7 @@ useSeoMeta({
         >
           Clear cart
         </button>
-        <p class="text-lg font-semibold text-gray-900">Total: ${{ cart.totalPrice.toFixed(2) }}</p>
+        <p class="text-lg font-semibold text-gray-900">Total: {{ formatPrice(cart.totalPrice) }}</p>
       </div>
     </div>
   </main>

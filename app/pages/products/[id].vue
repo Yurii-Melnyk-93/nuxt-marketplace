@@ -50,7 +50,7 @@ function addToCart() {
       <div>
         <span class="text-xs uppercase tracking-wide text-gray-400">{{ product.category }}</span>
         <h1 class="mt-1 text-2xl font-semibold text-gray-900">{{ product.name }}</h1>
-        <p class="mt-4 text-2xl font-bold text-gray-900">${{ product.price.toFixed(2) }}</p>
+        <p class="mt-4 text-2xl font-bold text-gray-900">{{ formatPrice(product.price) }}</p>
         <p class="mt-4 text-gray-600">{{ product.description }}</p>
 
         <button

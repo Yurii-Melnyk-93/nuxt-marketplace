@@ -65,7 +65,7 @@ function copyLink() {
       <div class="p-4">
         <span class="text-xs uppercase tracking-wide text-gray-400">{{ product.category }}</span>
         <h2 class="mt-1 font-medium text-gray-900">{{ product.name }}</h2>
-        <p class="mt-2 text-lg font-semibold text-gray-900">${{ product.price.toFixed(2) }}</p>
+        <p class="mt-2 text-lg font-semibold text-gray-900">{{ formatPrice(product.price) }}</p>
       </div>
     </NuxtLink>
 
