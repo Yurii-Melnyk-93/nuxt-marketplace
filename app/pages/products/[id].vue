@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const route = useRoute()
 const cart = useCartStore()
+const { show: showToast } = useToast()
 const { data: product, error } = await useFetch<Product>(() => `/api/products/${route.params.id}`)
 
 useSeoMeta({
@@ -24,6 +25,7 @@ if (error.value) {
 function addToCart() {
   if (product.value) {
     cart.addItem(product.value)
+    showToast(`${product.value.name} added to cart`)
   }
 }
 </script>

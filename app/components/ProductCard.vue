@@ -3,13 +3,16 @@ const props = defineProps<{ product: Product }>()
 
 const cart = useCartStore()
 const { copy, copied } = useClipboard()
+const { show: showToast } = useToast()
 
 function addToCart() {
   cart.addItem(props.product)
+  showToast(`${props.product.name} added to cart`)
 }
 
 function copyLink() {
   copy(`${window.location.origin}/products/${props.product.id}`)
+  showToast('Link copied to clipboard')
 }
 </script>
 

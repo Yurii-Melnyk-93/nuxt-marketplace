@@ -29,5 +29,6 @@ const cart = useCartStore()
     </div>
 
     <AppFooter />
+    <AppToaster />
   </div>
 </template>
