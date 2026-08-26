@@ -56,12 +56,15 @@ function copyLink() {
       :to="`/products/${product.id}`"
       class="block overflow-hidden rounded-t-xl"
     >
-      <img
+      <NuxtImg
         v-if="product.image"
         :src="product.image"
         :alt="product.name"
+        width="400"
+        height="300"
+        loading="lazy"
         class="h-40 w-full object-cover"
-      >
+      />
       <div class="p-4">
         <span class="text-xs uppercase tracking-wide text-gray-400">{{ product.category }}</span>
         <h2 class="mt-1 font-medium text-gray-900">{{ product.name }}</h2>

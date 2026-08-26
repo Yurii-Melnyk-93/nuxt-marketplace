@@ -27,11 +27,15 @@ useSeoMeta({
         :key="item.product.id"
         class="flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-4"
       >
-        <img
+        <NuxtImg
+          v-if="item.product.image"
           :src="item.product.image"
           :alt="item.product.name"
+          width="64"
+          height="64"
+          loading="lazy"
           class="h-16 w-16 rounded-lg object-cover"
-        >
+        />
 
         <div class="flex-1">
           <h2 class="font-medium text-gray-900">{{ item.product.name }}</h2>

@@ -41,11 +41,15 @@ function addToCart() {
       v-if="product"
       class="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2"
     >
-      <img
+      <NuxtImg
+        v-if="product.image"
         :src="product.image"
         :alt="product.name"
+        width="400"
+        height="300"
+        loading="lazy"
         class="w-full rounded-xl object-cover"
-      >
+      />
 
       <div>
         <span class="text-xs uppercase tracking-wide text-gray-400">{{ product.category }}</span>
