@@ -14,6 +14,11 @@ function close() {
   isOpen.value = false
 }
 
+function closeAndRefocus() {
+  isOpen.value = false
+  rootEl.value?.querySelector('button')?.focus()
+}
+
 defineExpose({ close })
 </script>
 
@@ -21,6 +26,7 @@ defineExpose({ close })
   <div
     ref="rootEl"
     class="relative inline-block"
+    @keydown.escape="closeAndRefocus"
   >
     <slot
       name="trigger"

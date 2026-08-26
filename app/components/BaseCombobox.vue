@@ -11,11 +11,21 @@ const emit = defineEmits<{
 
 const isOpen = ref(false)
 const query = ref('')
+const activeIndex = ref(0)
 const rootEl = ref<HTMLElement | null>(null)
 const inputEl = ref<HTMLInputElement | null>(null)
 
+const listboxId = useId()
+
 const filteredOptions = computed(() =>
   props.options.filter((option) => option.toLowerCase().includes(query.value.toLowerCase()))
+)
+
+// Index 0 is always the "All"/placeholder option, 1..n map to filteredOptions.
+const totalOptionsCount = computed(() => filteredOptions.value.length + 1)
+
+const activeOptionId = computed(() =>
+  isOpen.value ? `${listboxId}-option-${activeIndex.value}` : undefined
 )
 
 onClickOutside(rootEl, () => {
@@ -25,11 +35,13 @@ onClickOutside(rootEl, () => {
 function open() {
   isOpen.value = true
   query.value = ''
+  activeIndex.value = 0
 }
 
 function onInput(event: Event) {
   query.value = (event.target as HTMLInputElement).value
   isOpen.value = true
+  activeIndex.value = 0
 }
 
 function select(option: string) {
@@ -42,6 +54,26 @@ function close() {
   isOpen.value = false
   inputEl.value?.blur()
 }
+
+function selectActive() {
+  if (activeIndex.value === 0) {
+    select('')
+    return
+  }
+
+  const option = filteredOptions.value[activeIndex.value - 1]
+  if (option) select(option)
+}
+
+function moveActive(delta: number) {
+  if (!isOpen.value) {
+    open()
+    return
+  }
+
+  const count = totalOptionsCount.value
+  activeIndex.value = (activeIndex.value + delta + count) % count
+}
 </script>
 
 <template>
@@ -53,12 +85,21 @@ function close() {
       <input
         ref="inputEl"
         type="text"
+        role="combobox"
+        :aria-expanded="isOpen"
+        :aria-label="placeholder || 'Choose an option'"
+        aria-autocomplete="list"
+        :aria-controls="listboxId"
+        :aria-activedescendant="activeOptionId"
         :value="isOpen ? query : modelValue"
         :placeholder="placeholder"
         class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 pr-8 text-sm text-gray-900"
         @focus="open"
         @input="onInput"
         @keydown.escape="close"
+        @keydown.down.prevent="moveActive(1)"
+        @keydown.up.prevent="moveActive(-1)"
+        @keydown.enter.prevent="selectActive"
       >
       <svg
         class="pointer-events-none absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400 transition-transform duration-150"
@@ -76,31 +117,34 @@ function close() {
 
     <ul
       v-if="isOpen"
+      :id="listboxId"
       role="listbox"
       class="absolute z-30 mt-1 max-h-56 w-full overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-lg"
     >
       <li>
         <button
+          :id="`${listboxId}-option-0`"
           type="button"
           role="option"
           :aria-selected="modelValue === ''"
           class="block w-full px-3 py-2 text-left text-sm hover:bg-gray-100"
-          :class="{ 'bg-gray-50 font-medium': modelValue === '' }"
+          :class="{ 'bg-gray-100': activeIndex === 0, 'font-medium': modelValue === '' }"
           @click="select('')"
         >
           {{ placeholder || 'All' }}
         </button>
       </li>
       <li
-        v-for="option in filteredOptions"
+        v-for="(option, index) in filteredOptions"
         :key="option"
       >
         <button
+          :id="`${listboxId}-option-${index + 1}`"
           type="button"
           role="option"
           :aria-selected="modelValue === option"
           class="block w-full px-3 py-2 text-left text-sm hover:bg-gray-100"
-          :class="{ 'bg-gray-50 font-medium': modelValue === option }"
+          :class="{ 'bg-gray-100': activeIndex === index + 1, 'font-medium': modelValue === option }"
           @click="select(option)"
         >
           {{ option }}
