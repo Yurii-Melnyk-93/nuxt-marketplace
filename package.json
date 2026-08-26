@@ -2,6 +2,30 @@
   "name": "nuxt-marketplace",
   "type": "module",
   "private": true,
+  "description": "A small e-commerce marketplace built with Nuxt 4 — product catalog, search, filtering, pagination, cart, and a small accessible component library.",
+  "author": "Yurii Melnyk (https://github.com/Yurii-Melnyk-93)",
+  "license": "MIT",
+  "homepage": "https://nuxt-marketplace-sage.vercel.app/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Yurii-Melnyk-93/nuxt-marketplace.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Yurii-Melnyk-93/nuxt-marketplace/issues"
+  },
+  "keywords": [
+    "nuxt",
+    "vue",
+    "typescript",
+    "tailwindcss",
+    "pinia",
+    "ssr",
+    "e-commerce",
+    "portfolio"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
